@@ -17,7 +17,6 @@ let activeSignal = { BTCUSD: null, XAUUSD: null };
 
 ws.on('open', () => {
     ws.send(JSON.stringify({ type: 'subscribe', symbol: 'BINANCE:BTCUSDT' }));
-    ws.send(JSON.stringify({ type: 'subscribe', symbol: 'OANDA:XAU_USD' }));
 });
 
 ws.on('message', (data) => {
@@ -83,7 +82,7 @@ function monitorSignal(symbol) {
 function calculateIndicators(close, high, low) {
     return {
         bb: ti.BollingerBands.calculate({ period: 20, values: close, stdDev: 2 }),
-        macd: ti.MACD.calculate({ values: close, fastPeriod: 12, slowPeriod: 26, signalPeriod: 9 }),
+        macd: ti.MACD.calculate({ values: close, fastPeriod: 12, slowPeriod: 26, signalPeriod: 14 }),
         rsi: ti.RSI.calculate({ values: close, period: 14 }),
         ema21: ti.EMA.calculate({ values: close, period: 21 }),
         ema50: ti.EMA.calculate({ values: close, period: 50 }),
